@@ -1,3 +1,17 @@
+# Flatter
+
+**资源目录展平与图片压缩**
+
+## 资源目录展平与还原
+
+查看帮助
+
+```shell
+python3 flatter.py -h
+```
+
+帮助内容如下：
+
 ```
 usage: flatter.py [-h] {flat,move_back} start_dir dest_dir
 
@@ -11,3 +25,36 @@ positional arguments:
 options:
   -h, --help        show this help message and exit
 ```
+
+## 图片压缩
+
+* 使用`ffmpeg`压缩`.jpg`图片，使用`pngquant`压缩`.png`图片
+
+* 安装`ffmpeg`:
+
+  ```shell
+  brew install ffmpeg
+  ```
+
+* 安装`pngquant`:
+
+  ```shell
+  git clone --recursive https://github.com/kornelski/pngquant.git
+  cd pngquant
+  cargo build --release --features=cocoa
+  sudo mv target/release/pngquant /usr/local/bin/pngquant
+  ```
+
+* 压缩示例：
+
+  * 待压缩图片放在`./input/`(假设目录已做过展平处理)
+
+  * 压缩后的图片保存到`./output/`
+
+  * 压缩
+
+    ```shell
+    ./compress.sh ./input ./output
+    ```
+
+    
