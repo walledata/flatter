@@ -6,3 +6,6 @@ tiantianbaiyin.zip
 build
 dist
 map.json
+images*
+__MACOSX
+pressed
