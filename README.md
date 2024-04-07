@@ -2,6 +2,14 @@
 
 **资源目录展平与图片压缩**
 
+## 全自动脚本
+
+一键执行`目录展平 -> 压缩图片 -> 恢复目录结构`(仍然需要先在运行的机器上安装`ffmpeg`, `pngquant`, `crunch`)
+
+```shell
+./main.sh <源图片文件夹路径> <目标文件夹路径>
+```
+
 ## 资源目录展平与还原
 
 *目前版本完全基于标准库编写，不需要安装除python3解释器本身以外的任何依赖。*
@@ -30,15 +38,15 @@ options:
 
 ## 图片压缩
 
-* 使用`ffmpeg`压缩`.jpg`图片，使用`pngquant`压缩`.png`图片
+* 使用`ffmpeg`压缩`.jpg`图片，使用~~`pngquant`~~`crunch`压缩`.png`图片
 
-* 安装`ffmpeg`:
+* 安装[FFmpeg](https://github.com/FFmpeg/FFmpeg):
 
   ```shell
   brew install ffmpeg
   ```
 
-* 安装`pngquant`:
+* ~~安装[pngquant](https://github.com/kornelski/pngquant):~~
 
   ```shell
   git clone --recursive https://github.com/kornelski/pngquant.git
@@ -47,6 +55,16 @@ options:
   sudo mv target/release/pngquant /usr/local/bin/pngquant
   ```
 
+* 安装[Crunch](https://github.com/chrissimpkins/Crunch):
+
+  [Install Crunch.](https://github.com/chrissimpkins/Crunch/blob/master/docs/EXECUTABLE.md#install)
+
+  ```shell
+  git clone https://github.com/chrissimpkins/Crunch.git
+  make build-dependencies
+  make install-executable
+  ```
+  
 * 压缩示例：
 
   * 待压缩图片放在`./input/`(假设目录已做过展平处理)

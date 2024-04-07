@@ -15,7 +15,7 @@ if [ ! -d "$dst_folder" ]; then
    mkdir -p "$dst_folder"
 fi
 
-# 使用FFmpeg压缩JPEG图片
+# 使用 FFmpeg 压缩 JPEG 图片
 for src_file in "$src_folder"/*.{jpg,JPG,jpeg,JPEG}; do
    if [ -f "$src_file" ]; then
       file_name=$(basename "$src_file")
@@ -26,25 +26,10 @@ for src_file in "$src_folder"/*.{jpg,JPG,jpeg,JPEG}; do
    fi
 done
 
-# 使用pngquant压缩PNG图片
-for src_file in "$src_folder"/*.{png,PNG}; do
-   if [ -f "$src_file" ]; then
-      file_name=$(basename "$src_file")
-      dst_file="$dst_folder/$file_name"
+## 使用 pngquant 压缩 PNG 图片
+#./pngquant_compress.sh "$src_folder" "$dst_folder"
 
-      # 使用pngquant压缩图片并保存到目标文件夹
-      pngquant --quality=80-90 -f --output "$dst_file" "$src_file"
-
-      # 捕获pngquant的退出状态码
-      exit_code=$?
-
-      # 检查退出状态码
-      if [ $exit_code -ne 0 ]; then
-         # pngquant状态码99代表原图的色位数少于quality=80对应的最少色位数，通常是icon这类非常小的图片
-         echo "压缩失败: $src_file (Exit Code: $exit_code), 将原始文件拷贝到目标位置"
-         cp "$src_file" "$dst_file"
-      fi
-   fi
-done
+# 使用 Crunch 压缩 PNG 图片
+./crunch_compress.sh "$src_folder" "$dst_folder"
 
 echo "所有图片压缩完成并保存到 $dst_folder 中。"
