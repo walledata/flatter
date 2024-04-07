@@ -1,9 +1,11 @@
 .idea/
 flatter.spec
-build
-dist
+build/
+dist/
 map.json
 __MACOSX
 test_data
-tmp
-tmp_compressed
+tmp/
+tmp_compressed/
+Crunch/
+pngquant/
