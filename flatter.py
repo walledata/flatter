@@ -1,21 +1,32 @@
 import glob
 import os
+import random
 import shutil
 import hashlib
 import json
 import argparse
 
 
-def generate_file_hash(filepath):
+used_hash = []
+
+
+def generate_file_hash(filepath: str, salt: bytes = None) -> str:
     hash_function = hashlib.sha256()
     with open(filepath, "rb") as f:
         while chunk := f.read(8192):
             hash_function.update(chunk)
     hash_function.update(filepath.encode())  # 添加文件路径到hash
-    return hash_function.hexdigest()
+    if salt is not None:
+        print(f"Added salt for: {filepath}")
+        hash_function.update(salt)
+    hash_str = hash_function.hexdigest()
+    if hash_str not in used_hash:
+        used_hash.append(hash_str)
+        return hash_str
+    return generate_file_hash(filepath, random.randbytes(8))
 
 
-def move_images_to_top_level(start_dir, dest_dir, extensions=(".jpg", ".png", ".gif")):
+def move_images_to_top_level(start_dir: str, dest_dir: str, extensions: tuple[str] = (".jpg", ".png", ".gif")):
     # 转换为绝对路径
     start_dir = os.path.abspath(start_dir)
     dest_dir = os.path.abspath(dest_dir)
