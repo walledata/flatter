@@ -1,11 +1,9 @@
 .idea/
-target
 flatter.spec
-tiantianbaiyin
-tiantianbaiyin.zip
 build
 dist
 map.json
-images*
 __MACOSX
-pressed
+test_data
+tmp
+tmp_compressed

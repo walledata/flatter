@@ -16,7 +16,7 @@ if [ ! -d "$dst_folder" ]; then
 fi
 
 # 创建临时目录
-mkdir tmp # 存放展平后的所有原始图片
+mkdir tmp            # 存放展平后的所有原始图片
 mkdir tmp_compressed # 存放压缩后的图片
 
 # 展平资源目录
@@ -26,9 +26,12 @@ python3 flatter.py flat "$src_folder" ./tmp > map.json
 ./compress.sh ./tmp ./tmp_compressed
 
 # 对 map.json 中的路径做替换，避免还原原始目录结构时覆盖原始文件
-# 清除src_folder变量的"./"前缀（如果存在）
+# 清除路径的"./"前缀（如果存在）
 clean_src_folder="${src_folder#./}"
+# 检查路径末尾是否带有/，如果不存在则加上
+[[ "${clean_src_folder}" != */ ]] && clean_src_folder="${clean_src_folder}/"
 clean_dst_folder="${dst_folder#./}"
+[[ "${clean_dst_folder}" != */ ]] && clean_dst_folder="${clean_dst_folder}/"
 # 获取当前工作目录
 current_dir=$(pwd)
 # 构造sed的搜索模式
