@@ -55,11 +55,20 @@ def move_images_back(dest_dir, mapping_file_path):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="图片资源目录展平与复原 | 展平示例: flatter flat ./tiantianbaiyin/ ./target/ > map.json | 还原示例: flatter move_back map.json ./target/"
+        description="Flat and restore resource directory.\nCopyright (C) 2024 Walledata.\nLicensed under GPLv3 License.",
+        formatter_class=argparse.RawTextHelpFormatter,
     )
-    parser.add_argument("action", choices=["flat", "move_back"], help="flat - 展平, move_back - 还原")
-    parser.add_argument("start_dir", help="展平操作：原始图片资源目录；还原操作：记录原始路径的json文件")
-    parser.add_argument("dest_dir", help="存放展平后图片的目录")
+    parser.add_argument(
+        "action",
+        choices=["flat", "move_back"],
+        help="flat - copy all images to a single level folder,"
+        " move_back - restore the original resource directory structure.",
+    )
+    parser.add_argument(
+        "start_dir",
+        help="flat: original resource dir; move_back: the json file records the original resource dir structure.",
+    )
+    parser.add_argument("dest_dir", help="Directory where to store the flatten resource dir.")
     args = parser.parse_args()  # 解析命令行参数
     if args.action == "flat":
         print(move_images_to_top_level(args.start_dir, args.dest_dir))
