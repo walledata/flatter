@@ -45,4 +45,4 @@ sed -i '' "s|${search_pattern}|${replace_pattern}|g" ./map.json
 python3 flatter.py move_back ./map.json ./tmp_compressed/
 
 # 清理
-#rm -rf ./tmp ./tmp_compressed
+rm -rf ./tmp ./tmp_compressed
